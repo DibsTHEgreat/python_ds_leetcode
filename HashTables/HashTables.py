@@ -73,7 +73,21 @@ class HashTable:
                     # we return the value which is [1] instead of [0]
                     return self.data_map[index][i][1]
         return None
-                
+            
+    def keys(self):
+        # creating a new list to store keys
+        all_keys = []
+        
+        # iterating through entire list 0-6
+        for i in range(len(self.data_map)):
+            # in order to increase code efficieny, we first check if each address has data, if not we move on
+            if self.data_map[i] is not None:
+                # within this second for loop, we are now iterating through the second list at that specific index
+                for j in range(len(self.data_map[i])):
+                    # lastly, we add each key onto the list and move onto the next
+                    all_keys.append(self.data_map[i][j][0])
+        return all_keys     
+    
 my_hash = HashTable()
 
 print("What an empty Hash Table looks like:")
@@ -86,5 +100,7 @@ my_hash.set_item('lumber', 70)
 my_hash.print_table()
 
 print("Returning an item via get func:")
-
 print(my_hash.get_item('bolts'))
+
+print("Showing all keys in list via keys function")
+print(my_hash.keys())
