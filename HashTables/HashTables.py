@@ -57,10 +57,23 @@ class HashTable:
             self.data_map[index] = []
         # now we can add the key-value pair into the list
         self.data_map[index].append([key, value])
-        
-        
-        
     
+    def get_item(self, key):
+        # first we grab the index, so we know what we're dealing with.
+        index = self.__hash(key)
+        
+        if self.data_map[index] is not None:
+            # This is the list at the address, so we are grabbing the length of the second list not the big one 0-6.
+            for i in range(len(self.data_map[index])):
+                # now we check the index of the very first item within the second list
+                # self.data_map[index] - second list
+                # [i] - instance of for loop 
+                # [0] - checking the first item in the key-value pair --> { 'nails, 400 "} --> { [0], [1]}
+                if self.data_map[index][i][0] == key:
+                    # we return the value which is [1] instead of [0]
+                    return self.data_map[index][i][1]
+        return None
+                
 my_hash = HashTable()
 
 print("What an empty Hash Table looks like:")
@@ -71,3 +84,7 @@ my_hash.set_item('bolts', 1400)
 my_hash.set_item('washers', 50)
 my_hash.set_item('lumber', 70)
 my_hash.print_table()
+
+print("Returning an item via get func:")
+
+print(my_hash.get_item('bolts'))
