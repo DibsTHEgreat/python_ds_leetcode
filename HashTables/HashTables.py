@@ -32,7 +32,7 @@ class HashTable:
         # Create a list of 7 items which will contain None
         self.data_map = [None] * size
     
-    def __hash__(self, key):
+    def __hash(self, key):
         # Initialize the variable to zero
         my_hash = 0
         # loop through the letters in the key
@@ -48,7 +48,26 @@ class HashTable:
     def print_table(self):
         for i, val in enumerate(self.data_map):
             print(i,":", val)
+            
+    def set_item(self, key, value):
+        # first we are retrieving the address at which this key-value pair will be stored
+        index = self.__hash(key)
+        # now we are going to initialize an empty list at that address
+        if self.data_map[index] == None:
+            self.data_map[index] = []
+        # now we can add the key-value pair into the list
+        self.data_map[index].append([key, value])
+        
+        
+        
     
 my_hash = HashTable()
 
+print("What an empty Hash Table looks like:")
+my_hash.print_table()
+
+print("What a normal Hash Table looks like:")
+my_hash.set_item('bolts', 1400)
+my_hash.set_item('washers', 50)
+my_hash.set_item('lumber', 70)
 my_hash.print_table()
