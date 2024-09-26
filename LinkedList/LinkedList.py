@@ -36,7 +36,7 @@
 
 # Even for other operations, if you have to iterate through the LL, it is considered O(n)
 
-# Creating a Helper Function for my LL class:
+# Creating a Helper Class for my LL class:
 class Node:
     def __init__(self, value):
         self.value = value
@@ -52,10 +52,86 @@ class LinkedList:
         self.tail = new_node
         # Only one node in the list
         self.length = 1
+    
+    # This function will allow me to print my LL, one node at a time
+    def print_list(self):
+        # assigning a temp variable to head node
+        temp = self.head
+        
+        # while temp is not None, we iterate through the list
+        while temp is not None:
+            # print the value of each node
+            print(temp.value)
+            # assign temp the next node
+            temp = temp.next
+            
+    # This is the append function for my LL class
+    def append(self, value):
+        new_node = Node(value)
+        
+        # First we tackle a specific edge case for the append function     
+        if self.head is None:
+            self.head = new_node
+            self.tail = new_node
+        else:
+        # if it is a normal list, all we do is reassign the tail
+            self.tail.next = new_node
+            self.tail = new_node
+            
+        # since new node is added, we can add to the length of the LL
+        self.length += 1
+        
+        # only returning true for another method, not really needed for the append function
+        return True
+
+    # Pop function for my LL class
+    def pop(self):
+        # catching simple edge case
+        if self.length == 0:
+            return None
+        
+        # now we will create simple helper variables to iterate through the list
+        temp = self.head
+        pre = self.head
+        
+        # while temp.next is Not None, we iterate through the list
+        while(temp.next):
+            # assign pre to temp
+            pre = temp
+            # now we move temp to next node
+            temp = temp.next
+        
+        # Ideally when the loop finishes, temp points at the node we want to get rid off
+        # And pre points at the new last node
+        self.tail = pre
+        self.tail.next = None
+        
+        # Minus 1 the LL, since a node has been removed
+        self.length -= 1
+        
+        # we only do this if there was only one node at the beginning of the list
+        if self.length == 0:
+            self.head = None
+            self.tail = None
+        
+        return temp.value
+        
+            
+
 
 print("Using the constructor func:")
 my_linked_list = LinkedList(4)
 
 print("The Head of the new LL:")
 print(my_linked_list.head.value)
-        
+
+print("Now testing the append function by adding Node 3:")
+my_linked_list.append(3)
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the pop function by removing Node 3:")
+print(my_linked_list.pop())
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
