@@ -55,4 +55,7 @@ class LinkedList:
 
 print("Using the constructor func:")
 my_linked_list = LinkedList(4)
+
+print("The Head of the new LL:")
+print(my_linked_list.head.value)
         
