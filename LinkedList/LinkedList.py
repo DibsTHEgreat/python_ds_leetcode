@@ -115,9 +115,26 @@ class LinkedList:
             self.tail = None
         
         return temp.value
-        
-            
 
+    # simple prepend function for my LL class
+    def prepend(self, value):
+        new_node = Node(value)
+        
+        # simple edge case: empty list
+        if self.length == 0:
+            self.tail = new_node
+            self.head = new_node
+        else:
+            # make the next value equal to the beginning of the list aka the head
+            new_node.next = self.head
+            # now we reassign the head value
+            self.head = new_node
+        
+        self.length += 1
+        
+        return True
+
+    
 
 print("Using the constructor func:")
 my_linked_list = LinkedList(4)
@@ -132,6 +149,12 @@ my_linked_list.print_list()
 
 print("Now testing the pop function by removing Node 3:")
 print(my_linked_list.pop())
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the prepend function by adding Node 9 to the beginning of the list.")
+my_linked_list.prepend(9)
 
 print("To prove it worked, we can now use the print function to show the new LL:")
 my_linked_list.print_list()
