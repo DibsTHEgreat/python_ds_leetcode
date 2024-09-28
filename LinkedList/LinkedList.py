@@ -134,7 +134,53 @@ class LinkedList:
         
         return True
 
+    # This is the pop_first function for my LL class:
+    def pop_first(self):
+        # Simple edge case
+        if self.length == 0:
+            return None
+        # assign a temp variable to head
+        temp = self.head
+        # head is now equal to the subsequent node
+        self.head = self.head.next
+        # now we disconnect the temp node from the LL
+        temp.next = None
+        # lastly we decrement by 1
+        self.length -= 1
+        # There could be a situation where we have 1 node in the LL, and after we decrement it is 0
+        if self.length == 0:
+            self.tail = None
+        return temp
     
+    # This is the get function for my LL
+    def get(self, index):
+        # taking care of simple edge cases:
+        # 1: if index is negative
+        # 2: if index is outside of range
+        if index < 0 or index >= self.length:
+            return None
+        
+        # temp variable
+        temp = self.head
+        # the reason we do not have a variable for our counter is because we do not need it inside the for loop
+        for _ in range(index):
+           temp = temp.next 
+        
+        return temp
+    
+    # this is the set method for my LL class
+    # Note: cannot directly say set(...) because it is a key word within python
+    def set_value(self, index, value):
+        # grabbing the index we need
+        temp = self.get(index)
+        
+        if temp is not None:
+            temp.value = value
+            return True
+        
+        return False
+
+        
 
 print("Using the constructor func:")
 my_linked_list = LinkedList(4)
@@ -155,6 +201,33 @@ my_linked_list.print_list()
 
 print("Now testing the prepend function by adding Node 9 to the beginning of the list.")
 my_linked_list.prepend(9)
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the pop first function by removing Node 9 at the beginning of the list.")
+my_linked_list.pop_first()
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the get function by grabbing Node 4.")
+print(my_linked_list.get(0))
+
+print("Now I will add more nodes to my LL.")
+my_linked_list.append(5)
+my_linked_list.append(6)
+my_linked_list.append(7)
+my_linked_list.append(8)
+my_linked_list.prepend(3)
+my_linked_list.prepend(2)
+my_linked_list.prepend(1)
+
+print("This is the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the get function by changing Node 6 to Node 9")
+my_linked_list.set_value(5, 9)
 
 print("To prove it worked, we can now use the print function to show the new LL:")
 my_linked_list.print_list()
