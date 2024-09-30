@@ -179,8 +179,52 @@ class LinkedList:
             return True
         
         return False
-
+    
+    # This is the remove method for my LL class
+    def remove(self, index):
+        # taking care of simple edge cases:
+        # 1: if index is negative
+        # 2: if index is outside of range
+        if index < 0 or index >= self.length:
+            return None 
         
+        # Given index is the first item        
+        if index == 0:
+            return self.pop_first()
+        
+        # Given index is the last item
+        if index == self.length - 1:
+            return self.pop()
+
+        # Given the index now we will assign 2 variables onto the LL
+        # Prev will point at a node right before the index node
+        # temp will point directly at the node at the given index
+        prev = self.get(index - 1)
+        temp = prev.next
+        
+        # Now we remove the temp variable
+        prev.next = temp.next
+        temp.next = None
+        
+        # decrement the length
+        self.length -= 1
+        
+        return temp
+    
+    # This is the reverse method of my ll class
+    def reverse(self):
+        temp = self.head
+        self.head = self.tail
+        self.tail = temp
+        
+        before = None
+        after = temp.next
+        
+        for _ in range(self.length):
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
 
 print("Using the constructor func:")
 my_linked_list = LinkedList(4)
@@ -228,6 +272,18 @@ my_linked_list.print_list()
 
 print("Now testing the get function by changing Node 6 to Node 9")
 my_linked_list.set_value(5, 9)
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the remove function by removing Node 9")
+my_linked_list.remove(5)
+
+print("To prove it worked, we can now use the print function to show the new LL:")
+my_linked_list.print_list()
+
+print("Now testing the reverse function:")
+my_linked_list.reverse()
 
 print("To prove it worked, we can now use the print function to show the new LL:")
 my_linked_list.print_list()
