@@ -14,6 +14,8 @@ class Solution:
         # right is for selling (index of the day you will try to sell the stock)
         right = 1
 
+        maxP  = 0
+        
         # Loop until the right pointer reaches the end of the prices array
         while right < len(prices):
             
